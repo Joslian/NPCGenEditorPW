@@ -19,17 +19,17 @@ namespace NPCGenToXml
         public ObservableCollection<CONTROLLER> m_aControllers;
         public ObservableCollection<FLYAREA> m_aFlyAreas;
 
-        uint version = 0;
-        int iNumAIGen = 0;
-        int iNumResArea = 0;
-        int iNumDynObj = 0;
-        int iNumNPCCtrl = 0;
-        int iNumFlyArea = 0;
-        int iNumMineralCube = 0;
-        int iNumMineralSphere = 0;
-        int export_time = 0;
-        short export_vss_name = 0;
-        short export_computer_name =0;
+        uint version;
+        int iNumAIGen;
+        int iNumResArea;
+        int iNumDynObj;
+        int iNumNPCCtrl;
+        int iNumFlyArea;
+        int iNumMineralCube;
+        int iNumMineralSphere;
+        int export_time;
+        short export_vss_name;
+        short export_computer_name;
         byte[] unk;
         public bool Fileloaded = false;
 
@@ -109,9 +109,8 @@ namespace NPCGenToXml
                         m_aFlyAreas.Add(new FLYAREA(br));
                         listBox_aFlyAreas.Items.Add(m_aFlyAreas[i]);
                     }
-                }
+                } Fileloaded = true;
             }
-            Fileloaded = true;
         }
 
         private void Btn_FileSave_Click(object sender, EventArgs e)
@@ -155,9 +154,8 @@ namespace NPCGenToXml
                         m_aControllers[i].Write(bw, version);
                     for (int i = 0; i < iNumFlyArea; i++)
                         m_aFlyAreas[i].Write(bw);
-                }
+                } MessageBox.Show("Сохранено");
             }
-            MessageBox.Show("Сохранено");
         }
 
         private void listBox_aAreas_SelectedIndexChanged(object sender, EventArgs e) {
