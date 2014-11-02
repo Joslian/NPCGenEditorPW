@@ -13,6 +13,7 @@ namespace NPCGenToXml
         {
             return m_aNPCGens.Count > 0 ? string.Format("{0}: {1}", "AREA", m_aNPCGens[0].dwID) : string.Format("{0}: {1}", "AREA", 0);
         }
+        [DisplayName("Тип"), Description("Описание типа")]
         public int iType { get; set; }
         public int iNumGen { get; set; }
         public float[] vPos { get; set; } // 3
@@ -148,8 +149,6 @@ namespace NPCGenToXml
 
         public NPCGEN(BinaryReader br, uint version)
         {
-            if (version == 11)
-                iArea = br.ReadInt32();
             dwID = br.ReadUInt32();
             dwNum = br.ReadUInt32();
             iRefresh = br.ReadInt32();
@@ -168,11 +167,11 @@ namespace NPCGenToXml
             iLoopType = br.ReadInt32();
             iSpeedFlag = br.ReadInt32();
             iDeadTime = br.ReadInt32();
+            if (version == 11)
+                iArea = br.ReadInt32();
         }
 
         public void Write(BinaryWriter bw, uint version) {
-            if (version == 11)
-                bw.Write(iArea);
             bw.Write(dwID);
             bw.Write(dwNum);
             bw.Write(iRefresh);
@@ -191,6 +190,8 @@ namespace NPCGenToXml
             bw.Write(iLoopType);
             bw.Write(iSpeedFlag);
             bw.Write(iDeadTime);
+            if (version == 11)
+                bw.Write(iArea);
         }
 
         public NPCGEN() {
